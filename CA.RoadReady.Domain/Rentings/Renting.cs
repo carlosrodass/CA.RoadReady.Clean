@@ -50,6 +50,7 @@ namespace CA.RoadReady.Domain.Rentings
         public static Renting Book(Vehicle vehicle, Guid userId, DateRange? duration, DateTime? creationTime, PriceService priceService)
         {
             PriceDetail priceDetail = priceService.CalculatePrice(vehicle, duration);
+
             var renting = new Renting(Guid.NewGuid(),
                                       vehicle.Id,
                                       userId,
