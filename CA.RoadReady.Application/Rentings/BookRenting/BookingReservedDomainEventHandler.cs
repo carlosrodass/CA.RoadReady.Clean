@@ -32,9 +32,25 @@ namespace CA.RoadReady.Application.Rentings.BookRenting
                                  CancellationToken cancellationToken)
         {
 
+            var booking = await _rentingRepository.GetByIdAsync(notification.RentingId, cancellationToken);
 
+            if (booking is null)
+            {
+                return;
+            }
 
-            throw new NotImplementedException();
+            var user = await _userRepository.GetByIdAsync(booking.UserId, cancellationToken);
+
+            if (user is null)
+            {
+                return;
+            }
+
+            await _emailService.SendAsync(
+                user.Email!,
+                "Renting Reserved",
+                "You must comfirm this reserved");
+
         }
     }
 }
