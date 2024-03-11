@@ -1,0 +1,6 @@
+@CA.RoadReady.API_HostAddress = http://localhost:5258
+
+GET {{CA.RoadReady.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

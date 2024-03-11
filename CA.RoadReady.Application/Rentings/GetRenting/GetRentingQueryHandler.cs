@@ -24,13 +24,9 @@ namespace CA.RoadReady.Application.Rentings.GetRenting
             //TODO: Complete instruction
             var sql = """ 
                 SELECT 
-                    id AS Id,
-                    user_id AS UserId,
-                    vehicle_id AS VehicleId,
-                    status AS Status
+                   *
                 FROM Rentings
                 WHERE id=@RentingId 
-
             """;
 
 

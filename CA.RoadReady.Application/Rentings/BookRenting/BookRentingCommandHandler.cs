@@ -1,5 +1,6 @@
 ﻿using CA.RoadReady.Application.Abstractions.Clock;
 using CA.RoadReady.Application.Abstractions.Messaging;
+using CA.RoadReady.Application.Exceptions;
 using CA.RoadReady.Domain.Abstractions;
 using CA.RoadReady.Domain.Rentings;
 using CA.RoadReady.Domain.Users;
@@ -54,13 +55,24 @@ namespace CA.RoadReady.Application.Rentings.BookRenting
                 return Result.Failure<Guid>(RentingErrors.Overlap);
             }
 
-            var renting = Renting.Book(vehicle, request.UserId, duration, _dateTimeProvider.CurrentTime, _priceService);
+            try
+            {
+                var renting = Renting.Book(vehicle,
+                                           request.UserId,
+                                           duration,
+                                           _dateTimeProvider.CurrentTime,
+                                           _priceService);
 
-            _rentingRepositorsky.Add(renting);
+                _rentingRepositorsky.Add(renting);
 
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+                await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-            return renting.Id;
+                return renting.Id;
+            }
+            catch (ConcurrencyException ex)
+            {
+                return Result.Failure<Guid>(RentingErrors.Overlap);
+            }
         }
     }
 }

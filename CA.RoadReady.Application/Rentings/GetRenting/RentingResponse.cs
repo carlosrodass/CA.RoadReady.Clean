@@ -9,7 +9,7 @@ public sealed class RentingResponse
     public Guid UserId { get; init; }
     public Guid VehicleId { get; init; }
     public int Status { get; init; }
-    public decimal RentingPrice { get; init; }
+    public decimal PricePerTimeSpan { get; init; }
     public string? RentingCurrencyType { get; init; }
     public decimal MaintenancePrice { get; init; }
     public string? MaintenanceCurrencyType { get; init; }

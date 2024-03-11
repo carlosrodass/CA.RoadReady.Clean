@@ -2,7 +2,7 @@
 
 namespace CA.RoadReady.Application.Abstractions.Data;
 
-internal interface ISqlConnectionFactory
+public interface ISqlConnectionFactory
 {
 
     IDbConnection CreateConnection();
